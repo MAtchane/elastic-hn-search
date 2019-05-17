@@ -1,0 +1,15 @@
+<form class="input-wrapper" [formGroup]="searchForm">
+  <mat-form-field class="input-form-field">
+    <input matInput type="search" formControlName="searchField" placeholder="Type a keyword, e.g. Java" autofocus>
+    <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchField()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+    <mat-form-field class="filters-buttons">
+      <mat-label>Sort by</mat-label>
+      <select matNativeControl formControlName="sortField">
+        <option value="Newest" selected>Newest</option>
+        <option value="Oldest">Oldest</option>
+      </select>
+    </mat-form-field>
+</form>

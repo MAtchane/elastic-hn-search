@@ -1,0 +1,12 @@
+<div class="post-wrapper mat-elevation-z1" [@fadeAnimation]>
+  <div>
+    <a class="post-title mat-h3" href="{{data.url}}">
+      {{data.title}}
+    </a>
+  </div>
+  <div>
+    <p class="post-time mat-caption">
+      {{data.time*1000  | timeago:live}}
+    </p>
+  </div>
+</div>

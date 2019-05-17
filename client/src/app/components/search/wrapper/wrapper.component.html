@@ -1,0 +1,7 @@
+<app-input (newSearch)="onNewSearch($event)"></app-input>
+<mat-progress-bar mode="indeterminate" *ngIf="loading; else results"></mat-progress-bar>
+<ng-template #results>
+    <div class="results-list">
+        <app-post *ngFor="let result of results$ | async" [data]="result"></app-post>
+    </div>
+</ng-template>

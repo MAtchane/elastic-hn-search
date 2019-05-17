@@ -1,0 +1,38 @@
+.header-wrapper {
+    padding: 5px 1%;
+    background-color: #E86329;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media only screen and (min-width: 800px)  {
+    .header-wrapper {
+        padding: 5px 2%;
+    }
+}
+
+@media only screen and (min-width: 1000px)  {
+    .header-wrapper {
+        padding: 5px 3%;
+    }
+}
+
+.logo {
+    align-self: flex-start;
+    /* font-family: 'Trebuchet MS','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+    font-size: 1.3em;
+    color: white;
+    border: 3px solid white;
+    margin-right: 5px;
+    padding: 0px 6px;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+.header-links {
+    justify-self: flex-end;
+}
