@@ -26,7 +26,7 @@ export class WrapperComponent implements OnInit {
 
   ngOnInit() {
     this.results$ = of([
-      this.POST_EXAMPLE, this.POST_EXAMPLE
+      this.POST_EXAMPLE, this.POST_EXAMPLE, this.POST_EXAMPLE
     ]);
   }
 

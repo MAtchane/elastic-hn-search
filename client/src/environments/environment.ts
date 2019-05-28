@@ -4,7 +4,12 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:8000/api/v1'
+  apiEndpoint: 'http://localhost:8000/api/v1',
+  github: 'https://github.com/MAtchane',
+  githubRepo: 'https://github.com/MAtchane/hn-jobs-search',
+  faqUrl: '/faq',
+  personalWebsite: 'https://matchane.github.io/',
+  myEmail: 'mosab.atchane@gmail.com'
 };
 
 /*

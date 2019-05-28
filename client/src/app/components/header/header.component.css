@@ -1,6 +1,7 @@
 .header-wrapper {
     padding: 5px 1%;
-    background-color: #E86329;
+    /* background-color: #E86329; */
+    background-color: rgb(255, 102, 0);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,9 +20,7 @@
 }
 
 .logo {
-    align-self: flex-start;
-    /* font-family: 'Trebuchet MS','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-    font-size: 1.3em;
+    font-size: 1.5em;
     color: white;
     border: 3px solid white;
     margin-right: 5px;
@@ -35,4 +34,13 @@ a {
 
 .header-links {
     justify-self: flex-end;
+}
+
+.header-link {
+    display: inline-block;
+}
+
+.header-link img {
+    padding-left: 5%;
+    width: 36px;
 }
