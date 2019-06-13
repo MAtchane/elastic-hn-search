@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "es.task.period",
+    "type": "java.lang.String",
+    "description": "ES Indexing period"
+  },
+  {
+    "name": "es.server.uri",
+    "type": "java.lang.String",
+    "description": "ES server Uri'"
+  },
+  {
+    "name": "hn.api.base",
+    "type": "java.lang.String",
+    "description": "HN Api base Uri"
+  },
+  {
+    "name": "hn.api.item",
+    "type": "java.lang.String",
+    "description": "HN Api item Uri"
+  },
+  {
+    "name": "hn.api.max-id",
+    "type": "java.lang.String",
+    "description": "HN Api max Id Uri"
+  },
+  {
+    "name": "hn.item.start-id",
+    "type": "java.lang.String",
+    "description": "Index starting id"
+  },
+  {
+    "name": "es.hn-items.index.name",
+    "type": "java.lang.String",
+    "description": "HN items ES index name"
+  },
+  {
+    "name": "es.hn-items.index.overwrite",
+    "type": "java.lang.Boolean",
+    "description": "Overwrite existing items index"
+  }
+]}
