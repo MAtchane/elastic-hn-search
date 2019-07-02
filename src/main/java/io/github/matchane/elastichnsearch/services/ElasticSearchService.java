@@ -38,7 +38,7 @@ class ElasticSearchService {
     private ElasticSearchService(@Value("${es.server.uri}") String esServerUri, @Value("${es.server.key}") String apiKey) {
         if (client == null) {
             log.info("Configured ES ServerUri {}", esServerUri);
-            initJestClient(esServerUri, apiKey);
+            client = initJestClient(esServerUri, apiKey);
         }
     }
 
