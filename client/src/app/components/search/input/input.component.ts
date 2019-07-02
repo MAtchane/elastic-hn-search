@@ -20,9 +20,7 @@ export class InputComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let emitSearchEvent = () => {
-      this.newSearch.emit(new SearchRequest(this.searchValue, this.sortBy));
-    };
+    let emitSearchEvent = () => this.search();
 
     this.searchForm.get('searchField').valueChanges.pipe(
       debounceTime(500),
@@ -40,5 +38,9 @@ export class InputComponent implements OnInit {
 
   clearSearchField() {
     this.searchForm.get('searchField').setValue('');
+  }
+
+  search() {
+    this.newSearch.emit(new SearchRequest(this.searchValue, this.sortBy));
   }
 }

@@ -1,7 +1,7 @@
 <form class="input-wrapper" [formGroup]="searchForm">
   <mat-form-field class="input-form-field">
-    <input matInput type="search" formControlName="searchField" placeholder="Type a keyword, e.g. Java" autofocus>
-    <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchField()">
+    <input matInput type="search" formControlName="searchField" placeholder="Type a keyword, e.g. Java" (keydown.enter)="search()" autofocus>
+    <button mat-button type="button" *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchField()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>

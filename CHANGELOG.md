@@ -10,5 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic unit test for the sanitizer.
 - Basic web client, tested with server APIs.
 - Adding search highlight for the items text field (full text on hover).
+- Adding search on Enter.
 
 [Unreleased]: https://github.com/matchane//compare/0.0.1..HEAD

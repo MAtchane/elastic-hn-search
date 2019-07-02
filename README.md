@@ -1,4 +1,4 @@
-# hacker news elastic search
+# Elastic HN Search
 
 A Spring Boot - Angular application that indexes hacker news posts and provides ElasticSearch powered search of them.
 
@@ -84,7 +84,9 @@ N.B. The `Maven Resources Plugin` will automatically pickup the content of the `
 
 TBA
 
-PRs accepted.
+## Credits
+
+The timestamps are powered by the [ngx-timeago module](https://github.com/ihym/ngx-timeago)
 
 ## Contributing
 
