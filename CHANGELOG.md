@@ -11,5 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic web client, tested with server APIs.
 - Adding search highlight for the items text field (full text on hover).
 - Adding search on Enter.
+- Adding main page link on the header brand
+- Adding a placeholder for undefined post titles".
 
 [Unreleased]: https://github.com/matchane//compare/0.0.1..HEAD

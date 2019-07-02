@@ -1,6 +1,6 @@
 <div class="post-wrapper mat-elevation-z1" [@fadeAnimation]>
   <div>
-    <a [class.post-title-bordered]="data.textHighlights"  class="post-title mat-body-strong" href="{{getUrl(data)}}">{{data.title}}</a>
+    <a [class.post-title-bordered]="data.textHighlights"  class="post-title mat-body-strong" href="{{getUrl(data)}}">{{getTitle(data.title)}}</a>
   </div>
   
   <div *ngIf="data.textHighlights" class="post-text mat-body" title="{{data.text}}">

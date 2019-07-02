@@ -13,7 +13,8 @@ import { fadeAnimation } from 'src/app/shared/animations/fade.animation';
 })
 export class PostComponent {
   @Input() data: HnPost;
-  hnItemLink = 'https://news.ycombinator.com/item?id='
+  hnItemLink = 'https://news.ycombinator.com/item?id=';
+  NO_TITLE = 'Undefined title by the poster.';
 
   getUrl(item) {
     return item.url !== null ? item.url : this.getHnUrl(item);
@@ -21,5 +22,9 @@ export class PostComponent {
 
   getHnUrl(item) {
     return this.hnItemLink + item.id;
+  }
+
+  getTitle(title) {
+    return title === null ? this.NO_TITLE : title;
   }
 }
