@@ -35,17 +35,16 @@ class ElasticSearchService {
     private static final Logger log = LoggerFactory.getLogger(ElasticSearchService.class);
 
     @Inject
-    private ElasticSearchService(@Value("${es.server.uri}") String esServerUri, @Value("${es.server.key}") String apiKey) {
+    private ElasticSearchService(@Value("${es.server.uri}") String esServerUri) {
         if (client == null) {
             log.info("Configured ES ServerUri {}", esServerUri);
-            client = initJestClient(esServerUri, apiKey);
+            client = initJestClient(esServerUri);
         }
     }
 
-    private static JestClient initJestClient(String esServerUri, String apiKey) {
+    private static JestClient initJestClient(String esServerUri) {
         JestClientFactory factory = new JestClientFactory();
         factory.setHttpClientConfig(new HttpClientConfig.Builder(esServerUri)//
-                .defaultCredentials("apikey", apiKey)
                 .multiThreaded(true)//
                 .build());//
 
