@@ -11,10 +11,15 @@ import { fadeAnimation } from 'src/app/shared/animations/fade.animation';
   styleUrls: ['./post.component.css'],
   animations: [fadeAnimation]
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   @Input() data: HnPost;
+  hnItemLink = 'https://news.ycombinator.com/item?id='
 
-  ngOnInit() {
+  getUrl(item) {
+    return item.url !== null ? item.url : this.getHnUrl(item);
   }
 
+  getHnUrl(item) {
+    return this.hnItemLink + item.id;
+  }
 }

@@ -4,6 +4,25 @@
   background-color: #F6F6EF;
 }
 
+.post-title-bordered {
+  padding-bottom: 6px; 
+  border-bottom: solid 1px #ff6600;
+  width: fit-content; 
+}
+
+.post-text {
+  color: #828282;
+  margin-top: 10px;
+  padding: 6px;
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+p.text-highlight::first-letter {
+  text-transform: lowercase;
+}
+
 .post-time {
   color: #999999;
 }

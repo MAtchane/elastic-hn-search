@@ -1,6 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, tap, filter } from 'rxjs/operators';
+import { SearchRequest } from '../../../shared/models/search-request';
 
 @Component({
   selector: 'app-input',
@@ -8,9 +9,9 @@ import { debounceTime, tap } from 'rxjs/operators';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
-  @Output() newSearch = new EventEmitter<string>();
+  @Output() newSearch = new EventEmitter<SearchRequest>();
   searchValue = '';
-  sortBy = 'Newest';
+  sortBy = 'desc';
   searchForm = new FormGroup({
     searchField: new FormControl(this.searchValue),
     sortField: new FormControl(this.sortBy),
@@ -20,13 +21,15 @@ export class InputComponent implements OnInit {
 
   ngOnInit() {
     let emitSearchEvent = () => {
-      console.log(`searching for ${this.searchValue}, sorting by ${this.sortBy}`);
-      this.newSearch.emit(this.searchValue + this.sortBy);
+      this.newSearch.emit(new SearchRequest(this.searchValue, this.sortBy));
     };
 
     this.searchForm.get('searchField').valueChanges.pipe(
-      tap(val => this.searchValue = val),
-      debounceTime(500)
+      debounceTime(500),
+      tap(val => { 
+        this.searchValue = val;
+      }),
+      filter(val => val !== null && val !== '' && val.replace(/\s/g, '') !== '')
     ).subscribe(emitSearchEvent);
 
     this.searchForm.get('sortField').valueChanges.pipe(

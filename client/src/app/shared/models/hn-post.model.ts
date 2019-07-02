@@ -9,6 +9,7 @@ export class HnPost implements Deserializable {
     title: string;
     type: string;
     url: string;
+    textHighlights: string[];
 
     deserialize(input: any) {
         Object.assign(this, input);

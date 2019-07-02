@@ -1,12 +1,14 @@
-/**
- * 
+/*
+ * Copyright 2019 Mosab ATCHANE.
  */
-package io.github.matchane.hnjobssearch.dtos;
+package io.github.matchane.elastichnsearch.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.searchbox.annotations.JestId;
+
+import java.util.List;
 
 /**
  * POJO representation of a Hacker News item.
@@ -16,6 +18,22 @@ import io.searchbox.annotations.JestId;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HnItem {
+
+	// TODO should respect static naming convention
+	public enum fields {
+		url,
+		documentId,
+		id,
+		by,
+		score,
+		text,
+		time,
+		title,
+		type,
+	}
+
+	@JsonIgnore
+	public static String esTypeName = "hn_item";
 
 	@JestId @JsonIgnore
 	private String documentId;
@@ -28,9 +46,7 @@ public class HnItem {
 	private String type;
 	private String url;
 
-	public static String getEsTypeName() {
-		return "hn_item";
-	}
+	private List<String> textHighlights;
 
 	public static String getEsMapping() {
 		return "{ \"hn_item\" : " //
@@ -125,5 +141,13 @@ public class HnItem {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public List<String> getTextHighlights() {
+		return textHighlights;
+	}
+
+	public void setTextHighlights(List<String> textHighlights) {
+		this.textHighlights = textHighlights;
 	}
 }

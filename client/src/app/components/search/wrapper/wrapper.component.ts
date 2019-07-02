@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject } from 'rxjs';
 import { HnPost } from 'src/app/shared/models/hn-post.model';
-import { of, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { SearchRequest } from 'src/app/shared/models/search-request';
+import { SearchService } from 'src/app/shared/services/search.service';
+import { environment } from 'src/environments/environment.prod';
 
 /**
  * Wraps the search logic (input + search results).
@@ -13,27 +16,44 @@ import { delay } from 'rxjs/operators';
 })
 export class WrapperComponent implements OnInit {
   loading = false;
-  results$: Observable<HnPost[]>;
-  private POST_EXAMPLE = new HnPost().deserialize({
-    "by": "gdeglin",
-    "id": 19813756,
-    "score": 1,
-    "time": 1556837803,
-    "title": "OneSignal Is Hiring Ruby on Rails and DevOps Engineers in San Mateo",
-    "type": "job",
-    "url": "https://onesignal.com/careers"
-  });
+  results$: BehaviorSubject<HnPost[]>;
+  defaultSize = environment.defaultSize;
+  defaultSorting = environment.defaultSorting;
+
+  constructor(private searchService: SearchService, private errSnackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.results$ = of([
-      this.POST_EXAMPLE, this.POST_EXAMPLE, this.POST_EXAMPLE
-    ]);
+    this.results$ = new BehaviorSubject([]);
+
+    this.loading = true;
+    this.searchService.getLastItems(this.defaultSize, this.defaultSorting).subscribe(
+      val => {
+        this.loading = false;
+        this.results$.next(val);
+      },
+      err => {
+        this.loading = false;
+        this.openErrSnackBar(err);
+      });
   }
 
-  onNewSearch($event) {
+  onNewSearch($event: SearchRequest) {
     this.loading = true;
-    of([
-      this.POST_EXAMPLE, this.POST_EXAMPLE
-    ]).pipe(delay(500)).subscribe(val => this.loading = false);
+    this.searchService.searchFor($event).subscribe(
+      val => {
+        console.log(val);
+        this.loading = false;
+        this.results$.next(val);
+      },
+      err => {
+        this.loading = false;
+        this.openErrSnackBar(err);
+      });
+  }
+
+  openErrSnackBar(err) {
+    this.errSnackBar.open(err['message'], '', {
+      duration: 3000,
+    });
   }
 }

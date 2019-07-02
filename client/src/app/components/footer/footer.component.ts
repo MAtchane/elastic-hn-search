@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FooterComponent implements OnInit {
   github: string;
+  linkedin: string;
   personalWebsite: string;  
   myEmail: string;  
 
@@ -15,6 +16,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     this.github = environment.github;
+    this.linkedin = environment.linkedin;
     this.personalWebsite = environment.personalWebsite;
     this.myEmail = environment.myEmail;
   }

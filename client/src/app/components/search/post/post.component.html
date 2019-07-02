@@ -1,9 +1,13 @@
 <div class="post-wrapper mat-elevation-z1" [@fadeAnimation]>
   <div>
-    <a class="post-title mat-h3" href="{{data.url}}">
-      {{data.title}}
-    </a>
+    <a [class.post-title-bordered]="data.textHighlights"  class="post-title mat-body-strong" href="{{getUrl(data)}}">{{data.title}}</a>
   </div>
+  
+  <div *ngIf="data.textHighlights" class="post-text mat-body" title="{{data.text}}">
+    <p class="text-highlight" *ngFor="let highlight of data.textHighlights" [innerHTML]="highlight"></p>
+  </div>
+  <!-- <div *ngIf="data.textHighlights" [innerHTML]="data.text" class="post-text mat-body">
+  </div> -->
   <div>
     <p class="post-time mat-caption">
       {{data.time*1000  | timeago:live}}
