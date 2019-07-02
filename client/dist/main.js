@@ -42,8 +42,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: '', redirectTo: '/search', pathMatch: 'full' },
-    { path: 'search', component: _components_search_wrapper_wrapper_component__WEBPACK_IMPORTED_MODULE_3__["WrapperComponent"] },
+    { path: '', redirectTo: '/', pathMatch: 'full' },
+    { path: '/', component: _components_search_wrapper_wrapper_component__WEBPACK_IMPORTED_MODULE_3__["WrapperComponent"] },
     { path: '**', component: _components_search_wrapper_wrapper_component__WEBPACK_IMPORTED_MODULE_3__["WrapperComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -840,7 +840,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 var environment = {
     production: false,
-    apiEndpoint: 'http://localhost:8080/api/v1/hn/items',
+    apiEndpoint: '/api/v1/hn/items',
     searchContext: '/search',
     getLastContext: '/last',
     defaultSorting: 'DESC',
