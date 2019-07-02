@@ -35,16 +35,17 @@ class ElasticSearchService {
     private static final Logger log = LoggerFactory.getLogger(ElasticSearchService.class);
 
     @Inject
-    private ElasticSearchService(@Value("${es.server.uri}") String esServerUri) {
+    private ElasticSearchService(@Value("${es.server.uri}") String esServerUri, @Value("${es.server.key}") String apiKey) {
         if (client == null) {
             log.info("Configured ES ServerUri {}", esServerUri);
-            initJestClient(esServerUri);
+            initJestClient(esServerUri, apiKey);
         }
     }
 
-    private static JestClient initJestClient(String esServerUri) {
+    private static JestClient initJestClient(String esServerUri, String apiKey) {
         JestClientFactory factory = new JestClientFactory();
         factory.setHttpClientConfig(new HttpClientConfig.Builder(esServerUri)//
+                .defaultCredentials("apikey", apiKey)
                 .multiThreaded(true)//
                 .build());//
 
@@ -54,7 +55,7 @@ class ElasticSearchService {
     /**
      * Create a new index using the provided configuration.<br>
      *
-     * @param indexName ElasticSearch index name
+     * @param indexName  ElasticSearch index name
      * @param putMapping The index mapping
      * @throws IOException
      */
