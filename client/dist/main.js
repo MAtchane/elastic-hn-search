@@ -42,8 +42,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: '', redirectTo: '/', pathMatch: 'full' },
-    { path: '/', component: _components_search_wrapper_wrapper_component__WEBPACK_IMPORTED_MODULE_3__["WrapperComponent"] },
     { path: '**', component: _components_search_wrapper_wrapper_component__WEBPACK_IMPORTED_MODULE_3__["WrapperComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -461,7 +459,7 @@ module.exports = ".post-wrapper {\r\n  padding: 2px 10px;\r\n  margin: 6px 0px;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"post-wrapper mat-elevation-z1\" [@fadeAnimation]>\n  <div>\n    <a [class.post-title-bordered]=\"data.textHighlights\"  class=\"post-title mat-body-strong\" href=\"{{getUrl(data)}}\">{{data.title}}</a>\n  </div>\n  \n  <div *ngIf=\"data.textHighlights\" class=\"post-text mat-body\" title=\"{{data.text}}\">\n    <p class=\"text-highlight\" *ngFor=\"let highlight of data.textHighlights\" [innerHTML]=\"highlight\"></p>\n  </div>\n  <!-- <div *ngIf=\"data.textHighlights\" [innerHTML]=\"data.text\" class=\"post-text mat-body\">\n  </div> -->\n  <div>\n    <p class=\"post-time mat-caption\">\n      {{data.time*1000  | timeago:live}}\n    </p>\n  </div>\n</div>"
+module.exports = "<div class=\"post-wrapper mat-elevation-z1\" [@fadeAnimation]>\n  <div>\n    <a [class.post-title-bordered]=\"data.textHighlights\"  class=\"post-title mat-body-strong\" href=\"{{getUrl(data)}}\">{{data.title}}</a>\n  </div>\n  \n  <div *ngIf=\"data.textHighlights\" class=\"post-text mat-body\" title=\"{{data.text}}\">\n    <p class=\"text-highlight\" *ngFor=\"let highlight of data.textHighlights\" [innerHTML]=\"highlight\"></p>\n  </div>\n  <!-- <div *ngIf=\"data.textHighlights\" [innerHTML]=\"data.text\" class=\"post-text mat-body\">\n  </div> -->\n  <div>\n    <p class=\"post-time mat-caption\">\n      {{data.time*1000  | timeago}}\n    </p>\n  </div>\n</div>"
 
 /***/ }),
 
