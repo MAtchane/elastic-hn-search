@@ -73,9 +73,13 @@ public class HnItemService {
     /**
      * Index existing items starting from the provided {@link #initialStartId}.
      */
-    public void indexExistingItems() {
+    public void indexExistingItems() throws IOException {
         long maxId = hnApi.getMaxItemId();
         long startId = Long.parseLong(initialStartId);
+
+        if(Boolean.parseBoolean(overwriteExistingIndex)) {
+            startId = getMaxIndexedItemId();
+        }
 
         log.info("Indexing Existing Items");
         rangeIndex(startId, maxId);
