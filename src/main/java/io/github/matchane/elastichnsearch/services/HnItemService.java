@@ -59,8 +59,8 @@ public class HnItemService {
      * existing items.<br>
      * Should be run on the application start.
      *
-     * @see {@link #indexExistingItems()}
      * @throws IOException
+     * @see {@link #indexExistingItems()}
      */
     public void initIndex() throws IOException {
         final PutMapping putMapping = new PutMapping.Builder(indexName, HnItem.esTypeName, HnItem.getEsMapping())
@@ -73,12 +73,16 @@ public class HnItemService {
     /**
      * Index existing items starting from the provided {@link #initialStartId}.
      */
-    public void indexExistingItems() throws IOException {
+    public void indexExistingItems() {
         long maxId = hnApi.getMaxItemId();
         long startId = Long.parseLong(initialStartId);
 
-        if(Boolean.parseBoolean(overwriteExistingIndex)) {
-            startId = getMaxIndexedItemId();
+        if (Boolean.parseBoolean(overwriteExistingIndex)) {
+            try {
+                startId = getMaxIndexedItemId();
+            } catch (IOException e) {
+                log.error("Couldn't retrieve the last indexed item's Id, using the default startId.\n{}", e.getMessage());
+            }
         }
 
         log.info("Indexing Existing Items");
@@ -111,7 +115,6 @@ public class HnItemService {
      * This function fetches the last indexed item and adds all what have posted
      * since.<br>
      * <i>Should add support for very old items dynamic cleanup</i>
-     *
      */
     public void refreshIndex() {
         try {
@@ -192,7 +195,7 @@ public class HnItemService {
             Map<String, List<String>> highlightFields = h.highlight;
             HnItem source = h.source;
             if (highlightFields != null) {
-            List<String> textHighlights = highlightFields.get(HnItem.fields.text.name());
+                List<String> textHighlights = highlightFields.get(HnItem.fields.text.name());
                 source.setTextHighlights(textHighlights);
             }
 
