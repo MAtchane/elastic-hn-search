@@ -80,7 +80,7 @@ public class HnItemService {
         if (Boolean.parseBoolean(overwriteExistingIndex)) {
             try {
                 startId = getMaxIndexedItemId();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 log.error("Couldn't retrieve the last indexed item's Id, using the default startId.\n{}", e.getMessage());
             }
         }
