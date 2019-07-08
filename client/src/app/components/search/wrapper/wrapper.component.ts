@@ -53,7 +53,7 @@ export class WrapperComponent implements OnInit {
 
   openErrSnackBar(err) {
     this.errSnackBar.open(err['message'], '', {
-      duration: 3000,
+      duration: 1000,
     });
   }
 }

@@ -1,11 +1,22 @@
-/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
-/* @import "./hn-app-theme.css"; */
-
 body {
-  font-family: 'Roboto', sans-serif;
+  font: 400 16px 'Roboto', sans-serif;
   margin: 0%;
 }
 
+@media only screen and (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  body {
+    font-size: 12px;
+  }
+}
+/**
+* App wide styles
+*/
 p.text-highlight em { 
   background-color: yellow;
 }
