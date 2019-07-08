@@ -9,6 +9,7 @@ import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.core.SearchResult.Hit;
 import io.searchbox.indices.mapping.PutMapping;
+import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -168,12 +169,15 @@ public class HnItemService {
      */
     public List<HnItem> searchItems(String term, String sortBy) throws IOException {
         final String escapedQuery = ElasticSearchService.escapeQuery(term);
-        final MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(escapedQuery, //
-                HnItem.fields.by.name(), //
-                HnItem.fields.text.name(), //
-                HnItem.fields.title.name(), //
-                HnItem.fields.type.name(), //
-                HnItem.fields.url.name()); //
+        final MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(escapedQuery);
+
+        multiMatchQuery.field(HnItem.fields.title.name(), 30);
+        multiMatchQuery.field(HnItem.fields.text.name(), 10);
+        multiMatchQuery.field(HnItem.fields.by.name(), 1);
+        multiMatchQuery.field(HnItem.fields.type.name(), 1);
+        multiMatchQuery.field(HnItem.fields.url.name(), 1);
+
+        multiMatchQuery.fuzziness(Fuzziness.ONE);
 
         final HighlightBuilder highlightBuilder = new HighlightBuilder()
                 .field(HnItem.fields.text.name());
@@ -182,6 +186,7 @@ public class HnItemService {
         searchSourceBuilder.query(multiMatchQuery);
         searchSourceBuilder.sort("time", SortOrder.ASC.name().equalsIgnoreCase(sortBy) ? SortOrder.ASC : SortOrder.DESC);
         searchSourceBuilder.highlighter(highlightBuilder);
+        searchSourceBuilder.size(100); // Temporary fix till we add proper pagination.
 
         final Search search = new Search.Builder(searchSourceBuilder.toString())//
                 .addIndex(indexName)//
