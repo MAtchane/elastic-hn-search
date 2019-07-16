@@ -175,7 +175,7 @@ public class HnItemService {
         final MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(escapedQuery);
 
         multiMatchQuery.field(HnItem.fields.title.name());
-        multiMatchQuery.fuzziness(Fuzziness.ONE);
+        multiMatchQuery.fuzziness(Fuzziness.ZERO);
 
         final HighlightBuilder highlightBuilder = new HighlightBuilder()
                 .field(HnItem.fields.text.name());
