@@ -54,8 +54,8 @@ class ElasticSearchService {
     /**
      * Create a new index using the provided configuration.<br>
      *
-     * @param indexName  ElasticSearch index name
-     * @param putMapping The index mapping
+     * @param indexName  index name
+     * @param putMapping index mapping
      * @throws IOException
      */
     public void createIndex(String indexName, PutMapping putMapping, boolean overwrite) throws IOException {
@@ -95,7 +95,7 @@ class ElasticSearchService {
     /**
      * Execute a {@link Search} action using the configured {@link #client}.
      *
-     * @param searchQuery Search query object
+     * @param searchQuery search query object
      * @return search result object
      * @throws IOException
      */

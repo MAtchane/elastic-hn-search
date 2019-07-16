@@ -1,7 +1,9 @@
-<app-input (newSearch)="onNewSearch($event)"></app-input>
-<mat-progress-bar mode="indeterminate" *ngIf="loading; else results"></mat-progress-bar>
+<app-input *ngIf="enableInput" (newSearch)="onSearchInput($event)"></app-input>
+<mat-progress-bar class="loader" mode="indeterminate" *ngIf="loading; else results"></mat-progress-bar>
 <ng-template #results>
     <div class="results-list">
         <app-post *ngFor="let result of results$ | async" [data]="result"></app-post>
     </div>
+    <mat-paginator *ngIf="pagination" [length]="pageData.totalElements" [pageSize]="pageData.size" [pageIndex]="pageData.number" [pageSizeOptions]="[10, 25, 50]" (page)="paginate($event)">
+    </mat-paginator>
 </ng-template>

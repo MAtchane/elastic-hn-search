@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiEndpoint: '/api/v1/hn/items',
+  apiEndpoint: 'http://localhost:8080/api/v1/hn/items',
   searchContext: '/search',
   getLastContext: '/last',
   defaultSorting: 'DESC',

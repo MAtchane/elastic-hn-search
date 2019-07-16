@@ -14,6 +14,9 @@ import org.junit.Test;
  */
 public class ElasticSearchServiceTests {
 
+    /**
+     * Tests {@link ElasticSearchService#escapeQuery(String)}
+     */
     @Test
     public void testQueryEscaper() {
         Assert.assertEquals("\\\\+ \\\\- \\\\= \\\\&& \\\\||   \\\\! \\\\( \\\\) \\\\{ \\\\} \\\\[ \\\\] \\\\^ \\\\\" \\\\~ \\\\* \\\\? \\\\: \\\\\\ \\\\/", ElasticSearchService.escapeQuery("+ - = && || > < ! ( ) { } [ ] ^ \" ~ * ? : \\ /"));

@@ -15,5 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adding a placeholder for undefined post titles".
 - Continue indexing instead of starting over if overwriting is disabled (es.hn-items.index.overwrite=false).
 - Adding an info bar on the web client header (for announcements and such).
+- Adding paginated search
+- Disabling multi-field search (needs bigger hosts and better es query handling)
 
-[Unreleased]: https://github.com/matchane//compare/0.0.1..HEAD
+[Unreleased]: https://github.com/matchane/elastic-hn-search/compare/dev..HEAD

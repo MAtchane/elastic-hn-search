@@ -33,8 +33,8 @@ class HnApiService {
     /**
      * Get a {@link HnItem} with its Id.
      *
-     * @param id the item Id.
-     * @return The item as POJO
+     * @param id the item Id
+     * @return the item as POJO
      */
     public HnItem getItem(Long id) {
         return restTemplate.getForObject(itemApiUrl + id + ".json", HnItem.class);
@@ -43,7 +43,7 @@ class HnApiService {
     /**
      * Get the current item max id.
      *
-     * @return the parsed max id, 0L on invalid ones.
+     * @return the parsed max id, 0L on invalid ones
      */
     public long getMaxItemId() {
         ResponseEntity<String> maxIdResponse = restTemplate.getForEntity(maxIdApiUrl, String.class);

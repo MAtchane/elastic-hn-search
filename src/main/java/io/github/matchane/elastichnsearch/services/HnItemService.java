@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -136,8 +137,8 @@ public class HnItemService {
     /**
      * Range index items, uses {@link LongStream}.
      *
-     * @param startId Indexing start id (Inclusive)
-     * @param endId   Indexing end id (Inclusive)
+     * @param startId indexing start id (Inclusive)
+     * @param endId   indexing end id (Inclusive)
      */
     private void rangeIndex(long startId, long endId) {
         long startTime = System.currentTimeMillis();
@@ -162,21 +163,18 @@ public class HnItemService {
     /**
      * Search indexed items.
      *
-     * @param term   The search term
-     * @param sortBy Posting date sorting
-     * @return An empty list if the search operation failed or received no hits.
+     * @param page   page number
+     * @param size   max list size
+     * @param term   the search term
+     * @param sortBy posting date sorting
+     * @return an empty list if the search operation failed or received no hits
      * @throws IOException
      */
-    public List<HnItem> searchItems(String term, String sortBy) throws IOException {
+    public PagedResources<HnItem> searchItemsPaged(int page, int size, String term, String sortBy) throws IOException {
         final String escapedQuery = ElasticSearchService.escapeQuery(term);
         final MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(escapedQuery);
 
-        multiMatchQuery.field(HnItem.fields.title.name(), 30);
-        multiMatchQuery.field(HnItem.fields.text.name(), 10);
-        multiMatchQuery.field(HnItem.fields.by.name(), 1);
-        multiMatchQuery.field(HnItem.fields.type.name(), 1);
-        multiMatchQuery.field(HnItem.fields.url.name(), 1);
-
+        multiMatchQuery.field(HnItem.fields.title.name());
         multiMatchQuery.fuzziness(Fuzziness.ONE);
 
         final HighlightBuilder highlightBuilder = new HighlightBuilder()
@@ -186,7 +184,8 @@ public class HnItemService {
         searchSourceBuilder.query(multiMatchQuery);
         searchSourceBuilder.sort("time", SortOrder.ASC.name().equalsIgnoreCase(sortBy) ? SortOrder.ASC : SortOrder.DESC);
         searchSourceBuilder.highlighter(highlightBuilder);
-        searchSourceBuilder.size(100); // Temporary fix till we add proper pagination.
+        searchSourceBuilder.size(size);
+        searchSourceBuilder.from(size * page);
 
         final Search search = new Search.Builder(searchSourceBuilder.toString())//
                 .addIndex(indexName)//
@@ -196,7 +195,7 @@ public class HnItemService {
         final SearchResult result = searchService.search(search);
         final List<Hit<HnItem, Void>> hits = result.getHits(HnItem.class);
 
-        return hits.stream().map(h -> {
+        List<HnItem> results = hits.stream().map(h -> {
             Map<String, List<String>> highlightFields = h.highlight;
             HnItem source = h.source;
             if (highlightFields != null) {
@@ -206,36 +205,50 @@ public class HnItemService {
 
             return source;
         }).collect(Collectors.toList());
+
+        long totalElements = result.getTotal();
+        long totalPages = totalElements / size;
+        PagedResources.PageMetadata pageMetadata = new PagedResources.PageMetadata(size, page, totalElements, totalPages);
+
+        return new PagedResources<>(results, pageMetadata);
     }
 
     /**
-     * Get last indexed items.
+     * Get last indexed items paged.
      *
+     * @param page   page number
      * @param size   max list size
-     * @param sortBy Posting date sorting
-     * @return An empty list if the index is empty.
+     * @param sortBy posting date sorting
+     * @return an empty page if the index is empty
      * @throws IOException
      */
-    public List<HnItem> getLastItems(int size, String sortBy) throws IOException {
+    public PagedResources<HnItem> getLastItemsPaged(int page, int size, String sortBy) throws IOException {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchAllQuery());
         searchSourceBuilder.sort("time", SortOrder.ASC.name().equalsIgnoreCase(sortBy) ? SortOrder.ASC : SortOrder.DESC);
         searchSourceBuilder.size(size);
+        searchSourceBuilder.from(size * page);
 
         Search search = new Search.Builder(searchSourceBuilder.toString())//
                 .addIndex(indexName)//
-                .addType(HnItem.esTypeName)//
+                .addType(HnItem.esTypeName)//de
                 .build();
 
         SearchResult result = searchService.search(search);
         List<Hit<HnItem, Void>> hits = result.getHits(HnItem.class);
-        return hits.stream().map(h -> h.source).collect(Collectors.toList());
+        List<HnItem> results = hits.stream().map(h -> h.source).collect(Collectors.toList());
+
+        long totalElements = result.getTotal();
+        long totalPages = totalElements / size;
+        PagedResources.PageMetadata pageMetadata = new PagedResources.PageMetadata(size, page, totalElements, totalPages);
+
+        return new PagedResources<>(results, pageMetadata);
     }
 
     /**
      * Get the max id of indexed items.
      *
-     * @return An empty list if the index is empty.
+     * @return null if the index is empty
      * @throws IOException
      */
     public long getMaxIndexedItemId() throws IOException {

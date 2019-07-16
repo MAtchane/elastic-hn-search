@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, tap, filter } from 'rxjs/operators';
-import { SearchRequest } from '../../../shared/models/search-request';
+import { SearchRequest } from '../../../shared/models/search-request.model';
 
 @Component({
   selector: 'app-input',
@@ -41,6 +41,6 @@ export class InputComponent implements OnInit {
   }
 
   search() {
-    this.newSearch.emit(new SearchRequest(this.searchValue, this.sortBy));
+    this.newSearch.emit(new SearchRequest(this.searchValue, this.sortBy, 0, 10));
   }
 }
