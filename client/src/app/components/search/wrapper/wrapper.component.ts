@@ -57,6 +57,7 @@ export class WrapperComponent implements OnInit {
 
   onSearchInput(request: SearchRequest) {
     this.lastSearchRequest = request;
+    request.size = this.pageData.size;
 
     this.search(request);
   }
@@ -73,7 +74,6 @@ export class WrapperComponent implements OnInit {
 
     if (this.paginationRequest.term === null) {
       this.loading = true;
-      this.enableInput = true;
 
       this.searchService.getLastItems(this.lastSearchRequest)
         .subscribe(this.onSearchSuccuss, this.onSearchFailure);

@@ -42,7 +42,7 @@ export class SearchService {
   }
 
   extractResults(rawResponse: object): HnPost[] {
-    if (rawResponse['_embedded'] === null || rawResponse['_embedded']['hnItemList'] === null) {
+    if (rawResponse['_embedded'] === undefined || rawResponse['_embedded']['hnItemList'] === undefined) {
       return [];
     } else {
       return rawResponse['_embedded']['hnItemList'];
