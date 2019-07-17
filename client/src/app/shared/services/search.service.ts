@@ -26,14 +26,14 @@ export class SearchService {
     params = params.append('size', String(request.size));
     params = params.append('term', request.term);
     params = params.append('sortBy', request.sortBy);
-    
+
     return this.http.get<HnPost[]>(this.searchEndpoint, { params: params });
   }
-  
-  
+
+
   getLastItems(request: SearchRequest): Observable<HnPost[]> {
     let params = new HttpParams();
-    
+
     params = params.append('page', String(request.page));
     params = params.append('size', String(request.size));
     params = params.append('sortBy', request.sortBy);
@@ -42,7 +42,11 @@ export class SearchService {
   }
 
   extractResults(rawResponse: object): HnPost[] {
-    return rawResponse['_embedded']['hnItemList'];
+    if (rawResponse['_embedded'] === null || rawResponse['_embedded']['hnItemList'] === null) {
+      return [];
+    } else {
+      return rawResponse['_embedded']['hnItemList'];
+    }
   }
 
   extractPageData(rawResponse: object): PageData {
