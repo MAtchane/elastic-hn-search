@@ -21,7 +21,6 @@ public class HnItem {
     // TODO should respect static naming convention
     public enum fields {
         url,
-        documentId,
         id,
         by,
         score,
@@ -35,9 +34,7 @@ public class HnItem {
     public static final String esTypeName = "hn_item";
 
     @JestId
-    @JsonIgnore
-    private String documentId;
-    private long id;
+    private long id; // Using the same HN api id as a temporary fix for duplicated entries
     private String by;
     private long score;
     private String text;
@@ -69,14 +66,6 @@ public class HnItem {
 
     public String toString() {
         return "id: " + id + " | title: " + title + " | time: " + time + " | type: " + type + " | by: " + by;
-    }
-
-    public String getDocumentId() {
-        return documentId;
-    }
-
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
     }
 
     public long getId() {
