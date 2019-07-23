@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Using the HN api id instead of a generated one for ES item indexing.
+
+## [0.0.1] 18-07-2019
 - Periodic filtered indexing for HN posts.
 - Sanitized basic search (see HnItemController).
 - Basic unit test for the sanitizer.
@@ -19,3 +23,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disabling multi-field search (needs bigger hosts and better es query handling)
 
 [Unreleased]: https://github.com/matchane/elastic-hn-search/compare/dev..HEAD
+[0.0.1]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.1
