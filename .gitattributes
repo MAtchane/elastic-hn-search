@@ -1,1 +1,3 @@
 client/dist/ linguist-generated=true
+*.css linguist-detectable=false
+
