@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, tap, filter } from 'rxjs/operators';
 import { SearchRequest } from '../../../shared/models/search-request.model';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-input',
@@ -10,11 +11,14 @@ import { SearchRequest } from '../../../shared/models/search-request.model';
 })
 export class InputComponent implements OnInit {
   @Output() newSearch = new EventEmitter<SearchRequest>();
+  debounceTime = environment.debounceTime;
   searchValue = '';
   sortBy = 'desc';
+  advancedSearch = false;
   searchForm = new FormGroup({
     searchField: new FormControl(this.searchValue),
     sortField: new FormControl(this.sortBy),
+    advancedField: new FormControl(this.advancedSearch)
   });
 
   constructor() { }
@@ -23,7 +27,7 @@ export class InputComponent implements OnInit {
     let emitSearchEvent = () => this.search();
 
     this.searchForm.get('searchField').valueChanges.pipe(
-      debounceTime(500),
+      debounceTime(this.advancedSearch? this.debounceTime : this.debounceTime*3),
       tap(val => { 
         this.searchValue = val;
       }),
@@ -32,7 +36,12 @@ export class InputComponent implements OnInit {
 
     this.searchForm.get('sortField').valueChanges.pipe(
       tap(val => this.sortBy = val),
-      debounceTime(500)
+      debounceTime(this.debounceTime)
+    ).subscribe(emitSearchEvent);
+
+    this.searchForm.get('advancedField').valueChanges.pipe(
+      tap(val => this.advancedSearch = val),
+      debounceTime(this.debounceTime)
     ).subscribe(emitSearchEvent);
   }
 
@@ -41,6 +50,6 @@ export class InputComponent implements OnInit {
   }
 
   search() {
-    this.newSearch.emit(new SearchRequest(this.searchValue, this.sortBy, 0, 10));
+    this.newSearch.emit(new SearchRequest(this.searchValue, this.sortBy, 0, 10, this.advancedSearch));
   }
 }

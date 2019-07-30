@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  debounceTime: 1000,
   apiEndpoint: '/api/v1/hn/items',
   searchContext: '/search',
   getLastContext: '/last',

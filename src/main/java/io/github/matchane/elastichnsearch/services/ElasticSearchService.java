@@ -28,7 +28,7 @@ import java.io.IOException;
  * @since 0.0.1
  */
 @Service
-class ElasticSearchService {
+public class ElasticSearchService {
 
     private static JestClient client;
 

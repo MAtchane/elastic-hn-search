@@ -1,15 +1,24 @@
 <form class="input-wrapper" [formGroup]="searchForm">
   <mat-form-field class="input-form-field">
-    <input matInput type="search" formControlName="searchField" placeholder="Type a keyword" (keydown.enter)="search()" autofocus>
-    <button mat-button type="button" *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchField()">
+    <input matInput type="search" formControlName="searchField" placeholder="Type a keyword" (keydown.enter)="search()"
+      autofocus>
+    <button mat-button type="button" *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear"
+      (click)="clearSearchField()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-    <mat-form-field class="filters-buttons">
-      <mat-label>Sort by</mat-label>
-      <select matNativeControl formControlName="sortField">
-        <option value="desc">Newest</option>
-        <option value="asc">Oldest</option>
-      </select>
-    </mat-form-field>
+
+  <mat-form-field class="filters-buttons">
+    <mat-label>Sort by</mat-label>
+    <select matNativeControl formControlName="sortField">
+      <option value="desc">Newest</option>
+      <option value="asc">Oldest</option>
+    </select>
+  </mat-form-field>
+
+  <mat-slide-toggle 
+    matTooltip="Activates Elastic's Query string query." 
+    matTooltipClass="example-tooltip-red" 
+    class="filters-buttons"
+    formControlName="advancedField">Advanced</mat-slide-toggle>
 </form>

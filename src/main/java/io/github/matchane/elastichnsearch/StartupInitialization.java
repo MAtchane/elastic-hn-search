@@ -22,7 +22,7 @@ class StartupInitialization {
 
     private static final Logger log = LoggerFactory.getLogger(StartupInitialization.class);
 
-    @EventListener(ApplicationReadyEvent.class)
+//    @EventListener(ApplicationReadyEvent.class)
     public void initItemsIndex() {
         try {
             itemService.initIndex();

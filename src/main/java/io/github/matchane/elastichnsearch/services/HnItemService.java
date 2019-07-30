@@ -11,6 +11,7 @@ import io.searchbox.core.SearchResult.Hit;
 import io.searchbox.indices.mapping.PutMapping;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
@@ -163,29 +164,30 @@ public class HnItemService {
     /**
      * Search indexed items.
      *
-     * @param page   page number
-     * @param size   max list size
-     * @param term   the search term
-     * @param sortBy posting date sorting
+     * @param page     page number
+     * @param size     max list size
+     * @param term     the search term
+     * @param sortBy   posting date sorting
+     * @param advanced advanced search using ES query
      * @return an empty list if the search operation failed or received no hits
      * @throws IOException
      */
-    public PagedResources<HnItem> searchItemsPaged(int page, int size, String term, String sortBy) throws IOException {
-        final String escapedQuery = ElasticSearchService.escapeQuery(term);
-        final MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(escapedQuery);
-
-        multiMatchQuery.field(HnItem.fields.title.name());
-        multiMatchQuery.fuzziness(Fuzziness.ZERO);
-
-        final HighlightBuilder highlightBuilder = new HighlightBuilder()
-                .field(HnItem.fields.text.name());
-
+    public PagedResources<HnItem> searchItemsPaged(int page, int size, String term, String sortBy, boolean advanced) throws IOException {
         final SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(multiMatchQuery);
         searchSourceBuilder.sort("time", SortOrder.ASC.name().equalsIgnoreCase(sortBy) ? SortOrder.ASC : SortOrder.DESC);
-        searchSourceBuilder.highlighter(highlightBuilder);
         searchSourceBuilder.size(size);
         searchSourceBuilder.from(size * page);
+
+        if (advanced) {
+            searchSourceBuilder.query(QueryBuilders.queryStringQuery(term));
+        }
+        else {
+            final MultiMatchQueryBuilder multiMatchQuery = QueryBuilders.multiMatchQuery(term);
+            multiMatchQuery.field(HnItem.fields.title.name());
+            multiMatchQuery.fuzziness(Fuzziness.ZERO);
+            searchSourceBuilder.query(multiMatchQuery);
+        }
+
 
         final Search search = new Search.Builder(searchSourceBuilder.toString())//
                 .addIndex(indexName)//
@@ -195,16 +197,7 @@ public class HnItemService {
         final SearchResult result = searchService.search(search);
         final List<Hit<HnItem, Void>> hits = result.getHits(HnItem.class);
 
-        List<HnItem> results = hits.stream().map(h -> {
-            Map<String, List<String>> highlightFields = h.highlight;
-            HnItem source = h.source;
-            if (highlightFields != null) {
-                List<String> textHighlights = highlightFields.get(HnItem.fields.text.name());
-                source.setTextHighlights(textHighlights);
-            }
-
-            return source;
-        }).collect(Collectors.toList());
+        List<HnItem> results = hits.stream().map(h -> h.source).collect(Collectors.toList());
 
         long totalElements = result.getTotal();
         long totalPages = totalElements / size;

@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TimeagoModule } from 'ngx-timeago';
 import { InputComponent } from './input/input.component';
 import { PostComponent } from './post/post.component';
@@ -26,6 +27,7 @@ import { WrapperComponent } from './wrapper/wrapper.component';
     MatProgressBarModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
     TimeagoModule.forChild()
   ]
 })
