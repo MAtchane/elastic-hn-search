@@ -3,5 +3,6 @@ export class SearchRequest {
         public term: string,
         public sortBy: string,
         public page: number,
-        public size: number) { }
+        public size: number,
+        public advanced = false) { }
 }

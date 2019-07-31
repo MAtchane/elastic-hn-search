@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  debounceTime: 1000,
   apiEndpoint: 'http://localhost:8080/api/v1/hn/items',
   searchContext: '/search',
   getLastContext: '/last',

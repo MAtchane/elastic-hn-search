@@ -4,6 +4,7 @@
 package io.github.matchane.elastichnsearch.controllers;
 
 import io.github.matchane.elastichnsearch.dtos.HnItem;
+import io.github.matchane.elastichnsearch.services.ElasticSearchService;
 import io.github.matchane.elastichnsearch.services.HnItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * HN items controller.
@@ -33,7 +35,9 @@ class HnItemController {
     private static final Logger log = LoggerFactory.getLogger(HnItemController.class);
 
     @GetMapping(path = "/last", params = {"page", "size", "sortBy"}, produces = "application/json")
-    public ResponseEntity<PagedResources<HnItem>> getLastItems(@RequestParam int page, @RequestParam int size, @RequestParam String sortBy) {
+    public ResponseEntity<PagedResources<HnItem>> getLastItems(@RequestParam int page,
+                                                               @RequestParam int size,
+                                                               @RequestParam String sortBy) {
         try {
             return new ResponseEntity<>(itemService.getLastItemsPaged(page, size, sortBy), HttpStatus.OK);
         } catch (IOException e) {
@@ -42,10 +46,14 @@ class HnItemController {
         }
     }
 
-    @GetMapping(path = "/search", params = {"page", "size", "term", "sortBy"}, produces = "application/json")
-    public ResponseEntity<PagedResources<HnItem>> searchItems(@RequestParam int page, @RequestParam int size, @RequestParam String term, @RequestParam String sortBy) {
+    @GetMapping(path = "/search", params = {"page", "size", "term", "sortBy", "advanced"}, produces = "application/json")
+    public ResponseEntity<PagedResources<HnItem>> searchItems(@RequestParam int page,
+                                                              @RequestParam int size,
+                                                              @RequestParam String term,
+                                                              @RequestParam String sortBy,
+                                                              @RequestParam Optional<Boolean> advanced) {
         try {
-            return new ResponseEntity<>(itemService.searchItemsPaged(page, size, term, sortBy), HttpStatus.OK);
+            return new ResponseEntity<>(itemService.searchItemsPaged(page, size, term, sortBy, advanced.orElse(false)), HttpStatus.OK);
         } catch (IOException e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
