@@ -45,6 +45,19 @@ public class HnItem {
 
     private List<String> textHighlights;
 
+    public HnItem() {}
+
+    public HnItem(long id, String by, long score, String text, long time, String title, String type, String url) {
+        this.id = id;
+        this.by = by;
+        this.score = score;
+        this.text = text;
+        this.time = time;
+        this.title = title;
+        this.type = type;
+        this.url = url;
+    }
+
     /**
      * Return ElasticSearch index mapping for the {@link HnItem} Object.</br>
      * <i>Ignoring the text field, hosting limitations</i>
