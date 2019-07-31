@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+
+## [0.0.3] 31-07-2019
 - Adding mocked tests for the HnApi service.
 - Adding the app logo to the Readme.
 
@@ -31,5 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disabling multi-field search (needs bigger hosts and better es query handling)
 
 [Unreleased]: https://github.com/matchane/elastic-hn-search/compare/dev..HEAD
+[0.0.3]: https://github.com/matchane/elastic-hn-search/releases/tag/v0.0.3
 [0.0.2]: https://github.com/matchane/elastic-hn-search/releases/tag/v0.0.2
 [0.0.1]: https://github.com/matchane/elastic-hn-search/releases/tag/v0.0.1
