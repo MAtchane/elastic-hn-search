@@ -65,21 +65,19 @@ export class WrapperComponent implements OnInit {
   search(request: SearchRequest) {
     this.loading = true;
 
-    this.searchService.searchFor(request).subscribe(this.onSearchSuccuss, this.onSearchFailure);
+    if (request.term === null) {
+      this.searchService.getLastItems(this.lastSearchRequest)
+        .subscribe(this.onSearchSuccuss, this.onSearchFailure);
+    } else {
+      this.searchService.searchFor(request).subscribe(this.onSearchSuccuss, this.onSearchFailure);
+    }
   }
 
   paginate($event: PageEvent) {
     this.paginationRequest.size = $event.pageSize;
     this.paginationRequest.page = $event.pageIndex;
 
-    if (this.paginationRequest.term === null) {
-      this.loading = true;
-
-      this.searchService.getLastItems(this.lastSearchRequest)
-        .subscribe(this.onSearchSuccuss, this.onSearchFailure);
-    } else {
-      this.search(this.paginationRequest);
-    }
+    this.search(this.paginationRequest);
   }
 
   openErrSnackBar(err) {

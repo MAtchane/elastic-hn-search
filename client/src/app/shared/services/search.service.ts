@@ -26,6 +26,7 @@ export class SearchService {
     params = params.append('size', String(request.size));
     params = params.append('term', request.term);
     params = params.append('sortBy', request.sortBy);
+    params = params.append('advanced', String(request.advanced));
 
     return this.http.get<HnPost[]>(this.searchEndpoint, { params: params });
   }
