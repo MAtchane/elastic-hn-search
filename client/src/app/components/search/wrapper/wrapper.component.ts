@@ -65,7 +65,7 @@ export class WrapperComponent implements OnInit {
   search(request: SearchRequest) {
     this.loading = true;
 
-    if (this.paginationRequest.term === null) {
+    if (request.term === null) {
       this.searchService.getLastItems(this.lastSearchRequest)
         .subscribe(this.onSearchSuccuss, this.onSearchFailure);
     } else {

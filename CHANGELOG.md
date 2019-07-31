@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Using the HN api id instead of a generated one for ES item indexing.
 - Adding an option for advanced search (using ES Query string query).
 - Adding a gitattributes file to correct github heuristics.
+- Adding a tip dialog.
+- Bug fixes.
 
 ## [0.0.1] 18-07-2019
 - Periodic filtered indexing for HN posts.
