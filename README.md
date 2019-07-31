@@ -1,4 +1,5 @@
 # Elastic HN Search
+![Elastic HN Search Log](extra/elastic-hn-search.png?raw=true "App Logo")
 
 A Spring Boot - Angular application that indexes hacker news posts and provides ElasticSearch powered search of them.
 
