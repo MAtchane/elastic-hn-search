@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+
+## [0.0.2] 31-07-2019
 - Using the HN api id instead of a generated one for ES item indexing.
 - Adding an option for advanced search (using ES Query string query).
 - Adding a gitattributes file to correct github heuristics.
@@ -28,3 +30,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/matchane/elastic-hn-search/compare/dev..HEAD
 [0.0.1]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.1
+[0.0.1]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.2
