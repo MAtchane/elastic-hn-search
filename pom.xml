@@ -11,7 +11,7 @@
     </parent>
     <groupId>io.github.matchane</groupId>
     <artifactId>elastic-hn-search</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>elastic-hn-search</name>
     <description>The back end for the elastic hacker news search website</description>
 
