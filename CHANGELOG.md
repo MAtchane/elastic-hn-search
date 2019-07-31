@@ -29,5 +29,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Disabling multi-field search (needs bigger hosts and better es query handling)
 
 [Unreleased]: https://github.com/matchane/elastic-hn-search/compare/dev..HEAD
+[0.0.2]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.2
 [0.0.1]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.1
-[0.0.1]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v0.0.2
