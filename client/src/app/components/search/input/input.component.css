@@ -1,7 +1,6 @@
 .input-wrapper {
     display: flex;
     flex-direction: row;
-    font-size: 1rem;
     align-items: baseline;
     margin: 20px auto;
 }
@@ -10,10 +9,10 @@
     flex-grow: 2;
 }
 
-.filters-buttons {
-    margin-left: 3%;
+.filters-button {
+    margin-left: 1%;
 }
 
-mat-form-field.filters-buttons {
-    max-width: 80px;
+mat-form-field.filters-button {
+    max-width: 5em;
 }

@@ -8,7 +8,7 @@
     </button>
   </mat-form-field>
 
-  <mat-form-field class="filters-buttons">
+  <mat-form-field class="filters-button">
     <mat-label>Sort by</mat-label>
     <select matNativeControl formControlName="sortField">
       <option value="desc">Newest</option>
@@ -16,9 +16,11 @@
     </select>
   </mat-form-field>
 
-  <mat-slide-toggle 
-    matTooltip="Activates Elastic's Query string query." 
-    matTooltipClass="example-tooltip-red" 
-    class="filters-buttons"
-    formControlName="advancedField">Advanced</mat-slide-toggle>
+  <mat-form-field class="filters-button">
+    <mat-label>Type</mat-label>
+    <select matNativeControl formControlName="advancedField">
+      <option value="false">Simple</option>
+      <option value="true">Advanced</option>
+    </select>
+  </mat-form-field>
 </form>
