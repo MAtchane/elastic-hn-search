@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Adding mocked tests for the HnApi service.
 - Adding the app logo to the Readme.
 
+## [0.0.3] 31-07-2019
+- Adding mocked tests for the HnApi service.
+- Adding the app logo to the Readme.
+
 ## [0.0.2] 31-07-2019
 - Using the HN api id instead of a generated one for ES item indexing.
 - Adding an option for advanced search (using ES Query string query).
